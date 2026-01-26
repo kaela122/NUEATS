@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" prefHeight="700" prefWidth="1000" style="-fx-background-color: linear-gradient(to bottom, #e8f5e9, #c8e6c9);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nueats.controllers.LoginController">
+
+    <!-- Header -->
+    <HBox alignment="CENTER" spacing="20" style="-fx-padding: 40 0 20 0;">
+        <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
+            <Image url="@../images/logo.png" />
+        </ImageView>
+        <Text style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #2e7d32;" text="NueEats" />
+    </HBox>
+
+    <Text style="-fx-font-size: 18px; -fx-fill: #388e3c; -fx-padding: 0 0 30 0;" text="Campus Cafeteria System" />
+
+    <!-- Main Content -->
+    <HBox alignment="CENTER" spacing="50" style="-fx-padding: 20;">
+        <!-- Left Side - Image/Info -->
+        <VBox alignment="CENTER" prefWidth="400" spacing="20">
+            <ImageView fitHeight="300" fitWidth="300" preserveRatio="true">
+                <Image url="@../images/login-illustration.png" />
+            </ImageView>
+            <Text style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #1b5e20;" text="Smart Dining Experience" />
+            <Text style="-fx-font-size: 14px; -fx-fill: #666; -fx-text-alignment: center;" text="Order delicious meals from your campus cafeteria\nwith just a few clicks!" textAlignment="CENTER" />
+        </VBox>
+
+        <!-- Right Side - Login Form -->
+        <VBox alignment="CENTER" prefWidth="400" spacing="25" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0, 0, 5);">
+            
+            <Text style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-fill: #2e7d32;" text="Welcome Back!" />
+            
+            <Text style="-fx-font-size: 14px; -fx-fill: #666; -fx-padding: 0 0 20 0;" text="Please login to continue" />
+
+            <!-- Login Form -->
+            <VBox prefWidth="320" spacing="20">
+                <!-- Username/Email Field -->
+                <VBox spacing="8">
+                    <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Email Address" />
+                    <TextField fx:id="emailField" prefHeight="40" promptText="Enter your email" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" />
+                </VBox>
+
+                <!-- Password Field -->
+                <VBox spacing="8">
+                    <HBox spacing="5">
+                        <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Password" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button style="-fx-background-color: transparent; -fx-text-fill: #4caf50; -fx-font-size: 12px; -fx-padding: 0;" text="Forgot?" />
+                    </HBox>
+                    <PasswordField fx:id="passwordField" prefHeight="40" promptText="Enter your password" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" />
+                </VBox>
+
+                <!-- User Type Selection -->
+                <VBox spacing="8">
+                    <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Login As" />
+                    <HBox spacing="15">
+                        <RadioButton fx:id="studentRadio" selected="true" style="-fx-text-fill: #555;" text="Student" userData="Student" />
+                        <RadioButton fx:id="facultyRadio" style="-fx-text-fill: #555;" text="Faculty" userData="Faculty" />
+                        <RadioButton fx:id="staffRadio" style="-fx-text-fill: #555;" text="Staff" userData="Staff" />
+                    </HBox>
+                </VBox>
+
+                <!-- Remember Me & Login Button -->
+                <VBox spacing="20">
+                    <CheckBox style="-fx-text-fill: #555;" text="Remember me" />
+                    
+                    <Button fx:id="loginButton" prefHeight="45" prefWidth="320" style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-background-radius: 8; -fx-padding: 12;" text="Login" />
+                </VBox>
+
+                <!-- Error Message -->
+                <Label fx:id="errorLabel" style="-fx-text-fill: #f44336; -fx-font-size: 12px;" visible="false" />
+
+                <!-- Register Link -->
+                <HBox alignment="CENTER" spacing="5">
+                    <Label style="-fx-text-fill: #666;" text="New to NueEats?" />
+                    <Button fx:id="registerButton" style="-fx-background-color: transparent; -fx-text-fill: #4caf50; -fx-font-weight: bold; -fx-padding: 0;" text="Create Account" />
+                </HBox>
+
+                <!-- Divider -->
+                <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10 0;" />
+
+                <!-- Quick Login Options -->
+                <VBox spacing="10" style="-fx-padding: 20 0 0 0;">
+                    <HBox alignment="CENTER" spacing="15" />
+                </VBox>
+            </VBox>
+        </VBox>
+    </HBox>
+
+    <!-- Footer -->
+    <VBox alignment="CENTER" spacing="10" style="-fx-padding: 30 0 20 0;">
+        <Text style="-fx-font-size: 12px; -fx-fill: #666;" text="© 2024 NueEats Campus Cafeteria System" />
+        <HBox spacing="20">
+            <Button style="-fx-background-color: transparent; -fx-text-fill: #4caf50; -fx-font-size: 12px;" text="Privacy Policy" />
+            <Button style="-fx-background-color: transparent; -fx-text-fill: #4caf50; -fx-font-size: 12px;" text="Terms of Service" />
+            <Button style="-fx-background-color: transparent; -fx-text-fill: #4caf50; -fx-font-size: 12px;" text="Help ~ Support" />
+        </HBox>
+    </VBox>
+
+</VBox>

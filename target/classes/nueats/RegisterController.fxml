@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" prefHeight="800" prefWidth="1000" style="-fx-background-color: linear-gradient(to bottom, #fff3e0, #ffecb3);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nueats.controllers.RegisterController">
+
+    <!-- Back Button -->
+    <HBox alignment="TOP_LEFT" style="-fx-padding: 20;">
+        <Button fx:id="backButton" style="-fx-background-color: transparent; -fx-text-fill: #ff9800; -fx-font-weight: bold;" text="← Back to Login" />
+    </HBox>
+
+    <!-- Main Content -->
+    <HBox alignment="CENTER" spacing="50" style="-fx-padding: 20;">
+        <!-- Left Side - Registration Form -->
+        <VBox alignment="CENTER" prefWidth="500" spacing="25" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0, 0, 5);">
+            
+            <HBox alignment="CENTER" spacing="15">
+                <ImageView fitHeight="40" fitWidth="40" preserveRatio="true" />
+                <Text style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-fill: #ff9800;" text="Create New Account" />
+            </HBox>
+            
+            <Text style="-fx-font-size: 14px; -fx-fill: #666; -fx-padding: 0 0 20 0;" text="Join NueEats for the best campus dining experience" />
+
+            <!-- Registration Form -->
+            <VBox prefWidth="420" spacing="15">
+                <!-- Two Column Layout -->
+                <GridPane hgap="15" vgap="15">
+                    <!-- Row 1: Full Name -->
+                    <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Full Name *" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="nameField" promptText="Enter your full name" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+
+                    <!-- Row 2: Email and Phone -->
+                    <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Email Address *" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Phone Number" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    
+                    <TextField fx:id="emailField" promptText="student@university.edu" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <TextField fx:id="phoneField" promptText="+1 234 567 8900" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                    <!-- Row 3: Password -->
+                    <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Password *" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Confirm Password *" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    
+                    <PasswordField fx:id="passwordField" promptText="Create a password" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                    <PasswordField fx:id="confirmPasswordField" promptText="Confirm your password" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                    <!-- Row 4: User Type -->
+                    <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="I am a *" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                    <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Student ID (if applicable)" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    
+                    <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="7">
+                        <RadioButton fx:id="studentRadio" selected="true" style="-fx-text-fill: #555;" text="Student" userData="Student" />
+                        <RadioButton fx:id="facultyRadio" style="-fx-text-fill: #555;" text="Faculty" userData="Faculty" />
+                        <RadioButton fx:id="staffRadio" style="-fx-text-fill: #555;" text="Staff" userData="Staff" />
+                    </HBox>
+                    <TextField fx:id="studentIdField" promptText="S12345678" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
+                    <!-- Row 5: Hostel/Room (for students) -->
+                    <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Hostel ! Room" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                    <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Department" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                    
+                    <TextField fx:id="hostelField" promptText="Hostel A, Room 101" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                    <TextField fx:id="departmentField" promptText="Computer Science" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+
+                <!-- Terms & Conditions -->
+                <HBox spacing="10" style="-fx-padding: 10 0;">
+               <children>
+                  <Button fx:id="registerButton1" prefHeight="45" prefWidth="420" style="-fx-background-color: #ff9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-background-radius: 8; -fx-padding: 12;" text="Create Account" />
+               </children>
+                </HBox>
+
+                <!-- Error Message -->
+                <Label fx:id="errorLabel" style="-fx-text-fill: #f44336; -fx-font-size: 12px;" visible="false" />
+            </VBox>
+
+            <!-- Already have account -->
+            <HBox alignment="CENTER" spacing="5" style="-fx-padding: 20 0 0 0;">
+                <Label style="-fx-text-fill: #666;" text="Already have an account?" />
+                <Button fx:id="loginButton" style="-fx-background-color: transparent; -fx-text-fill: #ff9800; -fx-font-weight: bold; -fx-padding: 0;" text="Sign In" />
+            </HBox>
+        </VBox>
+
+        <!-- Right Side - Image/Info -->
+        <VBox alignment="CENTER" prefWidth="400" spacing="25">
+            <ImageView fitHeight="350" fitWidth="350" preserveRatio="true">
+                <Image url="@../images/register-illustration.png" />
+            </ImageView>
+            
+            <VBox alignment="CENTER_LEFT" spacing="15">
+                <Text style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-fill: #ff9800;" text="Benefits of Joining NueEats" />
+                
+                <VBox spacing="10">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../images/check.png" />
+                        </ImageView>
+                        <Text style="-fx-font-size: 14px; -fx-fill: #555;" text="No waiting in cafeteria queues" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../images/check.png" />
+                        </ImageView>
+                        <Text style="-fx-font-size: 14px; -fx-fill: #555;" text="Special student discounts" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../images/check.png" />
+                        </ImageView>
+                        <Text style="-fx-font-size: 14px; -fx-fill: #555;" text="Track your monthly spending" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../images/check.png" />
+                        </ImageView>
+                        <Text style="-fx-font-size: 14px; -fx-fill: #555;" text="Priority during exam seasons" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../images/check.png" />
+                        </ImageView>
+                        <Text style="-fx-font-size: 14px; -fx-fill: #555;" text="Earn loyalty points on every order" />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </VBox>
+    </HBox>
+
+</VBox>
