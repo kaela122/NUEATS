@@ -1,0 +1,221 @@
+/* ===== MAIN STYLES ===== */
+.root {
+    -fx-background-color: #f5f7fa;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* ===== BUTTONS ===== */
+.button {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 8 16;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+
+.primary-btn {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+.primary-btn:hover {
+    -fx-background-color: #2980b9;
+}
+
+.success-btn {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+}
+
+.success-btn:hover {
+    -fx-background-color: #27ae60;
+}
+
+.danger-btn {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+}
+
+.danger-btn:hover {
+    -fx-background-color: #c0392b;
+}
+
+.warning-btn {
+    -fx-background-color: #f39c12;
+    -fx-text-fill: white;
+}
+
+.warning-btn:hover {
+    -fx-background-color: #d35400;
+}
+
+.secondary-btn {
+    -fx-background-color: #95a5a6;
+    -fx-text-fill: white;
+}
+
+.secondary-btn:hover {
+    -fx-background-color: #7f8c8d;
+}
+
+/* ===== TEXT FIELDS & CONTROLS ===== */
+.text-field, .text-area, .combo-box, .date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 4;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .text-area:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.3), 5, 0, 0, 0);
+}
+
+/* ===== LABELS ===== */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.subtitle-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #7f8c8d;
+}
+
+.section-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e;
+}
+
+/* ===== PANELS & CONTAINERS ===== */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+    -fx-padding: 20;
+}
+
+.header-panel {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+}
+
+.status-bar {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, -2);
+}
+
+/* ===== TABLE VIEW ===== */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-color: #ecf0f1;
+    -fx-border-radius: 5;
+}
+
+.table-view .column-header {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 5;
+}
+
+.table-view .table-row-cell {
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #f8f9fa;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #d6eaf8;
+}
+
+/* ===== TABS ===== */
+.tab-pane {
+    -fx-background-color: transparent;
+    -fx-tab-min-height: 40px;
+}
+
+.tab {
+    -fx-background-color: #ecf0f1;
+    -fx-background-radius: 5 5 0 0;
+}
+
+.tab:selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+.tab-label {
+    -fx-font-weight: bold;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.spacer {
+    -fx-hgrow: ALWAYS;
+    -fx-vgrow: ALWAYS;
+}
+
+.divider {
+    -fx-background-color: #ecf0f1;
+    -fx-pref-height: 1;
+    -fx-pref-width: 100%;
+}
+
+.error-message {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}
+
+.success-message {
+    -fx-text-fill: #27ae60;
+    -fx-font-weight: bold;
+}
+
+.warning-message {
+    -fx-text-fill: #f39c12;
+    -fx-font-weight: bold;
+}
+
+.info-message {
+    -fx-text-fill: #3498db;
+    -fx-font-weight: bold;
+}
+
+/* ===== COLOR INDICATORS ===== */
+.in-stock {
+    -fx-text-fill: #27ae60;
+    -fx-font-weight: bold;
+}
+
+.low-stock {
+    -fx-text-fill: #f39c12;
+    -fx-font-weight: bold;
+}
+
+.out-of-stock {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}
+
+.status-active {
+    -fx-text-fill: #27ae60;
+    -fx-font-weight: bold;
+}
+
+.status-inactive {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}
+
+.status-pending {
+    -fx-text-fill: #f39c12;
+    -fx-font-weight: bold;
+}
