@@ -13,14 +13,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="700" prefWidth="1000" style="-fx-background-color: linear-gradient(to bottom, #e8f5e9, #c8e6c9);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nueats.controllers.LoginController">
+<VBox alignment="CENTER" prefHeight="880.0" prefWidth="932.0" style="-fx-background-color: linear-gradient(to bottom, #e8f5e9, #c8e6c9);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nueats.controllers.LoginController">
 
     <!-- Header -->
-    <HBox alignment="CENTER" spacing="20" style="-fx-padding: 40 0 20 0;">
+    <HBox alignment="CENTER" prefWidth="762.0" spacing="20" style="-fx-padding: 40 0 20 0;">
         <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
             <Image url="@../images/logo.png" />
         </ImageView>
-        <Text style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #2e7d32;" text="NueEats" />
+        <Text style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #2e7d32;" text="NUEats An Ordering System" />
     </HBox>
 
     <Text style="-fx-font-size: 18px; -fx-fill: #388e3c; -fx-padding: 0 0 30 0;" text="Campus Cafeteria System" />
@@ -33,7 +33,7 @@
                 <Image url="@../images/login-illustration.png" />
             </ImageView>
             <Text style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #1b5e20;" text="Smart Dining Experience" />
-            <Text style="-fx-font-size: 14px; -fx-fill: #666; -fx-text-alignment: center;" text="Order delicious meals from your campus cafeteria\nwith just a few clicks!" textAlignment="CENTER" />
+            <Text style="-fx-font-size: 14px; -fx-fill: #666; -fx-text-alignment: center;" text="Order delicious meals from your campus cafeteria\with just a few clicks!" textAlignment="CENTER" />
         </VBox>
 
         <!-- Right Side - Login Form -->

@@ -13,116 +13,116 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane style="-fx-background-color: linear-gradient(to bottom, #f8f9fa, #e9ecef);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yourproject.controllers.DashboardController">
-    
-    <!-- Top Header -->
-    <top>
-        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: white; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
-            
-            <!-- Logo/App Name -->
+<BorderPane prefHeight="835.0" prefWidth="1072.0" style="-fx-background-color: linear-gradient(to bottom, #f8f9fa, #e9ecef);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yourproject.controllers.DashboardController">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: white; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+         <children>
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Rectangle arcHeight="10" arcWidth="10" fill="#4e54c8" height="40" width="40" />
-                <VBox>
-                    <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="NUEats Dashboard" />
-                    <Label style="-fx-text-fill: #7f8c8d; -fx-font-size: 12px;" text="CRUD Management System" />
-                </VBox>
+               <children>
+                  <Rectangle arcHeight="10" arcWidth="10" fill="#4e54c8" height="40" width="40" />
+                  <VBox>
+                     <children>
+                        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="NUEats Dashboard" />
+                        <Label style="-fx-text-fill: #7f8c8d; -fx-font-size: 12px;" text="CRUD Management System" />
+                     </children>
+                  </VBox>
+               </children>
             </HBox>
-            
             <Region HBox.hgrow="ALWAYS" />
-            
-            <!-- User Info -->
             <HBox alignment="CENTER" spacing="10">
-                <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">
-                    <Image url="@../images/user-icon.png" />
-                </ImageView>
-                <VBox>
-                    <Label fx:id="lblUsername" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Admin User" />
-                    <Label style="-fx-text-fill: #7f8c8d; -fx-font-size: 12px;" text="Administrator" />
-                </VBox>
-                <Button onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15;" text="Logout" />
+               <children>
+                  <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../nueats/nueats/src/main/resources/images/user-icon.png" />
+                     </image>
+                  </ImageView>
+                  <VBox>
+                     <children>
+                        <Label fx:id="lblUsername" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Admin User" />
+                        <Label style="-fx-text-fill: #7f8c8d; -fx-font-size: 12px;" text="Administrator" />
+                     </children>
+                  </VBox>
+                  <Button onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 15;" text="Logout" />
+               </children>
             </HBox>
-        </HBox>
-    </top>
-    
-    <!-- Left Sidebar Navigation -->
-    <left>
-        <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-min-width: 250; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 2, 0);">
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-min-width: 250; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 2, 0);">
+         <children>
             <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d; -fx-font-size: 12px; -fx-padding: 0 0 10 0;" text="MAIN NAVIGATION" />
-            
-            <!-- Dashboard -->
             <Button fx:id="btnDashboard" onAction="#goToDashboard" style="-fx-background-color: #4e54c8; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 12 20; -fx-alignment: CENTER_LEFT;" text="Dashboard">
-                <graphic>
-                    <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
-                        <Image url="@../images/dashboard-icon.png" />
-                    </ImageView>
-                </graphic>
+               <graphic>
+                  <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../nueats/nueats/src/main/resources/images/dashboard-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            
-            <!-- Product Management -->
             <Button fx:id="btnProducts" onAction="#goToProducts" style="-fx-background-color: transparent; -fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 12 20; -fx-alignment: CENTER_LEFT; -fx-border-color: transparent;" text="Product Management">
-                <graphic>
-                    <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
-                        <Image url="@../images/product-icon.png" />
-                    </ImageView>
-                </graphic>
+               <graphic>
+                  <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../nueats/nueats/src/main/resources/images/product-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            
-            <!-- Add New Item -->
             <Button fx:id="btnAddItem" onAction="#goToAddItem" style="-fx-background-color: transparent; -fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 12 20; -fx-alignment: CENTER_LEFT; -fx-border-color: transparent;" text="Add New Product">
-                <graphic>
-                    <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
-                        <Image url="@../images/add-icon.png" />
-                    </ImageView>
-                </graphic>
+               <graphic>
+                  <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../nueats/nueats/src/main/resources/images/add-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            
-            <!-- Search -->
             <Button fx:id="btnSearch" onAction="#goToSearch" style="-fx-background-color: transparent; -fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 12 20; -fx-alignment: CENTER_LEFT; -fx-border-color: transparent;" text="Advanced Search">
-                <graphic>
-                    <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
-                        <Image url="@../images/search-icon.png" />
-                    </ImageView>
-                </graphic>
+               <graphic>
+                  <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../nueats/nueats/src/main/resources/images/search-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            
-            <!-- Reports -->
             <Button fx:id="btnReports" onAction="#goToReports" style="-fx-background-color: transparent; -fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 12 20; -fx-alignment: CENTER_LEFT; -fx-border-color: transparent;" text="Reports ~ Analytics">
-                <graphic>
-                    <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
-                        <Image url="@../images/report-icon.png" />
-                    </ImageView>
-                </graphic>
+               <graphic>
+                  <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../nueats/nueats/src/main/resources/images/report-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            
             <Separator style="-fx-padding: 20 0;" />
-            
             <Label style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d; -fx-font-size: 12px; -fx-padding: 0 0 10 0;" text="QUICK ACTIONS" />
-            
             <Button onAction="#quickAdd" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;" text="Quick Add" />
             <Button onAction="#viewAll" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;" text="View All" />
             <Button onAction="#exportData" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;" text="Export Data" />
-        </VBox>
-    </left>
-    
-    <!-- Center Content Area -->
-    <center>
-        <StackPane fx:id="contentArea" style="-fx-background-color: transparent; -fx-padding: 20;">
-            <!-- Dynamic content will be loaded here -->
-            <Label style="-fx-font-size: 24px; -fx-text-fill: #7f8c8d;" text="Welcome to MarketPro CRM Dashboard" />
-        </StackPane>
-    </center>
-    
-    <!-- Bottom Status Bar -->
-    <bottom>
-        <HBox alignment="CENTER" spacing="20" style="-fx-background-color: white; -fx-padding: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, -2);">
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <StackPane fx:id="contentArea" style="-fx-background-color: transparent; -fx-padding: 20;">
+         <children>
+            <Label style="-fx-font-size: 24px; -fx-text-fill: #7f8c8d;" text="Welcome to NUEats CRM Dashboard" />
+         </children>
+      </StackPane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="7.0" prefWidth="894.0" spacing="20" style="-fx-background-color: white; -fx-padding: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, -2);">
+         <children>
             <Label fx:id="lblStatus" style="-fx-text-fill: #27ae60; -fx-font-weight: bold;" text="System Ready" />
             <Region HBox.hgrow="ALWAYS" />
             <Label fx:id="lblRecordCount" style="-fx-text-fill: #7f8c8d;" text="Total Records: 0" />
             <Label fx:id="lblLastUpdate" style="-fx-text-fill: #7f8c8d;" text="Last Update: --" />
-        </HBox>
-    </bottom>
-    
-    <padding>
-        <Insets bottom="0" left="0" right="0" top="0" />
-    </padding>
+         </children>
+      </HBox>
+   </bottom>
+   <padding>
+      <Insets bottom="0" left="0" right="0" top="0" />
+   </padding>
 </BorderPane>

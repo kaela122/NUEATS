@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedAreaChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextAlignment?>
+
+<BorderPane fx:id="analyticsRoot" xmlns="http://javafx.com/javafx/17.0.2-ea" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.cafeteria.controller.AnalyticsController"
+            stylesheets="@../styles/analytics_style.css">
+
+    <!-- TOP: Header & Filters -->
+    <top>
+        <VBox style="-fx-background-color: linear-gradient(to right, #0d47a1, #1565c0);">
+            <HBox alignment="CENTER" spacing="20" style="-fx-padding: 15px 30px;">
+                <!-- Logo and Title -->
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <StackPane>
+                        <Circle radius="25" fill="white" />
+                        <ImageView fitWidth="30" fitHeight="30" preserveRatio="true">
+                            <Image url="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" />
+                        </ImageView>
+                    </StackPane>
+                    <VBox spacing="2">
+                        <Label text="CAFETERIA ANALYTICS" style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;" />
+                        <Label text="Advanced Data Insights @ Reports" style="-fx-text-fill: #bbdefb; -fx-font-size: 12px;" />
+                    </VBox>
+                </HBox>
+                
+                <!-- Time Period Selector -->
+                <HBox alignment="CENTER" spacing="15" HBox.hgrow="ALWAYS">
+                    <ToggleGroup fx:id="periodGroup" />
+                    <ToggleButton text="Today" toggleGroup="$periodGroup" styleClass="period-btn" userData="today" />
+                    <ToggleButton text="Week" toggleGroup="$periodGroup" styleClass="period-btn" userData="week" selected="true" />
+                    <ToggleButton text="Month" toggleGroup="$periodGroup" styleClass="period-btn" userData="month" />
+                    <ToggleButton text="Quarter" toggleGroup="$periodGroup" styleClass="period-btn" userData="quarter" />
+                    <ToggleButton text="Year" toggleGroup="$periodGroup" styleClass="period-btn" userData="year" />
+                    <ToggleButton text="Custom" toggleGroup="$periodGroup" styleClass="period-btn" userData="custom" />
+                </HBox>
+                
+                <!-- Export Button -->
+                <Button text="📊 Export Report" styleClass="export-btn" />
+            </HBox>
+            
+            <!-- Filters Row -->
+            <HBox alignment="CENTER" spacing="15" style="-fx-padding: 0 30px 20px 30px;">
+                <!-- Date Range -->
+                <HBox alignment="CENTER" spacing="10">
+                    <Label text="From:" style="-fx-text-fill: white; -fx-font-weight: bold;" />
+                    <DatePicker styleClass="date-picker" />
+                    <Label text="To:" style="-fx-text-fill: white; -fx-font-weight: bold;" />
+                    <DatePicker styleClass="date-picker" />
+                </HBox>
+                
+                <!-- Category Filter -->
+                <HBox alignment="CENTER" spacing="10">
+                    <Label text="Category:" style="-fx-text-fill: white; -fx-font-weight: bold;" />
+                    <ComboBox promptText="All Categories" styleClass="filter-combo">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="All Categories" />
+                                <String fx:value="Food" />
+                                <String fx:value="Beverages" />
+                                <String fx:value="Snacks" />
+                                <String fx:value="Desserts" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </HBox>
+                
+                <!-- Metric Selector -->
+                <HBox alignment="CENTER" spacing="10">
+                    <Label text="Metric:" style="-fx-text-fill: white; -fx-font-weight: bold;" />
+                    <ComboBox promptText="Revenue" styleClass="filter-combo">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Revenue" />
+                                <String fx:value="Orders" />
+                                <String fx:value="Quantity Sold" />
+                                <String fx:value="Average Order Value" />
+                                <String fx:value="Customer Count" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </HBox>
+                
+                <!-- Apply Button -->
+                <Button text="Apply Filters" styleClass="apply-btn" />
+                <Button text="Reset" styleClass="reset-btn" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- CENTER: Analytics Content -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #f8fafc; -fx-border-color: transparent;">
+            <VBox spacing="25" style="-fx-padding: 25px;">
+                <!-- Row 1: Key Metrics -->
+                <GridPane hgap="20" vgap="20">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="20" />
+                        <ColumnConstraints percentWidth="20" />
+                        <ColumnConstraints percentWidth="20" />
+                        <ColumnConstraints percentWidth="20" />
+                        <ColumnConstraints percentWidth="20" />
+                    </columnConstraints>
+                    
+                    <!-- Revenue Card -->
+                    <StackPane styleClass="metric-card" GridPane.columnIndex="0">
+                        <VBox spacing="5" alignment="CENTER">
+                            <Label text="📈" style="-fx-font-size: 32px;" />
+                            <Label text="Total Revenue" style="-fx-text-fill: #64748b; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                            <Label text="₹2,47,850" style="-fx-text-fill: #0f172a; -fx-font-size: 24px; -fx-font-weight: bold;" />
+                            <HBox alignment="CENTER" spacing="5">
+                                <Label text="▲ 18.5%" style="-fx-text-fill: #10b981; -fx-font-size: 11px; -fx-font-weight: bold;" />
+                                <Label text="vs last month" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;" />
+                            </HBox>
+                        </VBox>
+                    </StackPane>
+                    
+                    <!-- Orders Card -->
+                    <StackPane styleClass="metric-card" GridPane.columnIndex="1">
+                        <VBox spacing="5" alignment="CENTER">
+                            <Label text="📦" style="-fx-font-size: 32px;" />
+                            <Label text="Total Orders" style="-fx-text-fill: #64748b; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                            <Label text="3,248" style="-fx-text-fill: #0f172a; -fx-font-size: 24px; -fx-font-weight: bold;" />
+                            <HBox alignment="CENTER" spacing="5">
+                                <Label text="▲ 12.3%" style="-fx-text-fill: #10b981; -fx-font-size: 11px; -fx-font-weight: bold;" />
+                                <Label text="vs last month" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;" />
+                            </HBox>
+                        </VBox>
+                    </StackPane>
+                    
+                    <!-- Avg Order Value -->
+                    <StackPane styleClass="metric-card" GridPane.columnIndex="2">
+                        <VBox spacing="5" alignment="CENTER">
+                            <Label text="💰" style="-fx-font-size: 32px;" />
+                            <Label text="Avg Order Value" style="-fx-text-fill: #64748b; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                            <Label text="₹340" style="-fx-text-fill: #0f172a; -fx-font-size: 24px; -fx-font-weight: bold;" />
+                            <HBox alignment="CENTER" spacing="5">
+                                <Label text="▲ 5.2%" style="-fx-text-fill: #10b981; -fx-font-size: 11px; -fx-font-weight: bold;" />
+                                <Label text="vs last month" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;" />
+                            </HBox>
+                        </VBox>
+                    </StackPane>
+                    
+                    <!-- Items Sold -->
+                    <StackPane styleClass="metric-card" GridPane.columnIndex="3">
+                        <VBox spacing="5" alignment="CENTER">
+                            <Label text="🍔" style="-fx-font-size: 32px;" />
+                            <Label text="Items Sold" style="-fx-text-fill: #64748b; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                            <Label text="12,847" style="-fx-text-fill: #0f172a; -fx-font-size: 24px; -fx-font-weight: bold;" />
+                            <HBox alignment="CENTER" spacing="5">
+                                <Label text="▲ 22.1%" style="-fx-text-fill: #10b981; -fx-font-size: 11px; -fx-font-weight: bold;" />
+                                <Label text="vs last month" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;" />
+                            </HBox>
+                        </VBox>
+                    </StackPane>
+                    
+                    <!-- Customer Growth -->
+                    <StackPane styleClass="metric-card" GridPane.columnIndex="4">
+                        <VBox spacing="5" alignment="CENTER">
+                            <Label text="👥" style="-fx-font-size: 32px;" />
+                            <Label text="Customer Growth" style="-fx-text-fill: #64748b; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                            <Label text="+18.7%" style="-fx-text-fill: #0f172a; -fx-font-size: 24px; -fx-font-weight: bold;" />
+                            <HBox alignment="CENTER" spacing="5">
+                                <Label text="▲ 8.4%" style="-fx-text-fill: #10b981; -fx-font-size: 11px; -fx-font-weight: bold;" />
+                                <Label text="vs last quarter" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;" />
+                            </HBox>
+                        </VBox>
+                    </StackPane>
+                </GridPane>
+                
+                <!-- Row 2: Main Charts -->
+                <GridPane hgap="20" vgap="20">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="60" />
+                        <ColumnConstraints percentWidth="40" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints percentHeight="100" />
+                    </rowConstraints>
+                    
+                    <!-- Revenue Trend Chart -->
+                    <VBox styleClass="chart-container" GridPane.columnIndex="0">
+                        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 15px 0;">
+                            <Label text="📈 Revenue Trend Analysis" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+                            <HBox HBox.hgrow="ALWAYS" />
+                            <ToggleGroup fx:id="trendGroup" />
+                            <ToggleButton text="Daily" toggleGroup="$trendGroup" styleClass="chart-toggle" />
+                            <ToggleButton text="Weekly" toggleGroup="$trendGroup" styleClass="chart-toggle" selected="true" />
+                            <ToggleButton text="Monthly" toggleGroup="$trendGroup" styleClass="chart-toggle" />
+                        </HBox>
+                        <LineChart fx:id="revenueTrendChart" legendVisible="false" animated="true" createSymbols="true">
+                            <xAxis>
+                                <CategoryAxis label="Time Period" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Revenue (₹)" />
+                            </yAxis>
+                        </LineChart>
+                    </VBox>
+                    
+                    <!-- Category Distribution -->
+                    <VBox styleClass="chart-container" GridPane.columnIndex="1">
+                        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 15px 0;">
+                            <Label text="🥗 Sales by Category" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+                            <HBox HBox.hgrow="ALWAYS" />
+                            <ComboBox promptText="This Month" styleClass="small-combo">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="This Week" />
+                                        <String fx:value="This Month" />
+                                        <String fx:value="This Quarter" />
+                                        <String fx:value="This Year" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </HBox>
+                        <PieChart fx:id="categoryDistributionChart" />
+                    </VBox>
+                </GridPane>
+                
+                <!-- Row 3: Bar Charts -->
+                <GridPane hgap="20" vgap="20">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" />
+                        <ColumnConstraints percentWidth="50" />
+                    </columnConstraints>
+                    
+                    <!-- Top Selling Items -->
+                    <VBox styleClass="chart-container" GridPane.columnIndex="0">
+                        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 15px 0;">
+                            <Label text="🔥 Top Selling Items" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+                            <HBox HBox.hgrow="ALWAYS" />
+                            <Label text="Quantity Sold" style="-fx-text-fill: #64748b; -fx-font-size: 12px;" />
+                        </HBox>
+                        <BarChart fx:id="topItemsChart" legendVisible="false" barGap="5" categoryGap="20">
+                            <xAxis>
+                                <CategoryAxis label="Menu Items" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Quantity Sold" />
+                            </yAxis>
+                        </BarChart>
+                    </VBox>
+                    
+                    <!-- Hourly Sales Pattern -->
+                    <VBox styleClass="chart-container" GridPane.columnIndex="1">
+                        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 15px 0;">
+                            <Label text="⏰ Hourly Sales Pattern" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+                            <HBox HBox.hgrow="ALWAYS" />
+                            <ComboBox promptText="Today" styleClass="small-combo">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Today" />
+                                        <String fx:value="Weekday Avg" />
+                                        <String fx:value="Weekend Avg" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </HBox>
+                        <BarChart fx:id="hourlySalesChart" legendVisible="false">
+                            <xAxis>
+                                <CategoryAxis label="Hour of Day" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Revenue (₹)" />
+                            </yAxis>
+                        </BarChart>
+                    </VBox>
+                </GridPane>
+                
+                <!-- Row 4: Comparison & Forecast -->
+                <GridPane hgap="20" vgap="20">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" />
+                        <ColumnConstraints percentWidth="50" />
+                    </columnConstraints>
+                    
+                    <!-- Month-over-Month Comparison -->
+                    <VBox styleClass="chart-container" GridPane.columnIndex="0">
+                        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 15px 0;">
+                            <Label text="📅 Month-over-Month Comparison" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+                            <HBox HBox.hgrow="ALWAYS" />
+                            <Label text="Current vs Previous Month" style="-fx-text-fill: #64748b; -fx-font-size: 12px;" />
+                        </HBox>
+                        <BarChart fx:id="monthComparisonChart" barGap="2" categoryGap="10">
+                            <xAxis>
+                                <CategoryAxis label="Days" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Revenue (₹)" />
+                            </yAxis>
+                        </BarChart>
+                    </VBox>
+                    
+                    <!-- Revenue Forecast -->
+                    <VBox styleClass="chart-container" GridPane.columnIndex="1">
+                        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 15px 0;">
+                            <Label text="🔮 Revenue Forecast (Next 30 Days)" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+                            <HBox HBox.hgrow="ALWAYS" />
+                            <Label text="Based on historical data" style="-fx-text-fill: #64748b; -fx-font-size: 12px;" />
+                        </HBox>
+                        <LineChart fx:id="forecastChart" legendVisible="false" createSymbols="true">
+                            <xAxis>
+                                <CategoryAxis label="Future Days" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Expected Revenue (₹)" />
+                            </yAxis>
+                        </LineChart>
+                    </VBox>
+                </GridPane>
+                
+                <!-- Row 5: Detailed Tables -->
+                <VBox spacing="15">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="📋 Detailed Analytics Data" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+                        <HBox HBox.hgrow="ALWAYS" />
+                        <Button text="Download CSV" styleClass="download-btn" />
+                        <Button text="Print Report" styleClass="print-btn" />
+                    </HBox>
+                    
+                    <TabPane styleClass="analytics-tabpane">
+                        <tabs>
+                            <Tab text="Item Performance">
+                                <TableView fx:id="itemPerformanceTable" style="-fx-background-color: transparent;">
+                                    <columns>
+                                        <TableColumn text="Item Name" prefWidth="200" />
+                                        <TableColumn text="Category" prefWidth="120" />
+                                        <TableColumn text="Quantity Sold" prefWidth="100" />
+                                        <TableColumn text="Revenue" prefWidth="100" />
+                                        <TableColumn text="Avg Daily Sales" prefWidth="120" />
+                                        <TableColumn text="Growth %" prefWidth="100" />
+                                        <TableColumn text="Profit Margin" prefWidth="100" />
+                                    </columns>
+                                </TableView>
+                            </Tab>
+                            
+                            <Tab text="Hourly Analysis">
+                                <TableView fx:id="hourlyAnalysisTable" style="-fx-background-color: transparent;">
+                                    <columns>
+                                        <TableColumn text="Hour" prefWidth="80" />
+                                        <TableColumn text="Orders" prefWidth="100" />
+                                        <TableColumn text="Revenue" prefWidth="100" />
+                                        <TableColumn text="Avg Order Value" prefWidth="120" />
+                                        <TableColumn text="Busiest Item" prefWidth="150" />
+                                        <TableColumn text="Peak Time" prefWidth="100" />
+                                    </columns>
+                                </TableView>
+                            </Tab>
+                            
+                            <Tab text="Customer Insights">
+                                <TableView fx:id="customerInsightsTable" style="-fx-background-color: transparent;">
+                                    <columns>
+                                        <TableColumn text="Customer Segment" prefWidth="150" />
+                                        <TableColumn text="Avg Order Frequency" prefWidth="120" />
+                                        <TableColumn text="Avg Order Value" prefWidth="120" />
+                                        <TableColumn text="Preferred Time" prefWidth="120" />
+                                        <TableColumn text="Favorite Category" prefWidth="120" />
+                                        <TableColumn text="Retention Rate" prefWidth="100" />
+                                    </columns>
+                                </TableView>
+                            </Tab>
+                        </tabs>
+                    </TabPane>
+                </VBox>
+                
+                <!-- Row 6: Insights & Recommendations -->
+                <VBox styleClass="insights-card">
+                    <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 15px 0;">
+                        <Label text="💡 Insights @ Recommendations" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+                        <HBox HBox.hgrow="ALWAYS" />
+                        <Button text="Generate AI Insights" styleClass="ai-insights-btn" />
+                    </HBox>
+                    
+                    <GridPane hgap="20" vgap="20">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="33" />
+                            <ColumnConstraints percentWidth="33" />
+                            <ColumnConstraints percentWidth="34" />
+                        </columnConstraints>
+                        
+                        <!-- Insight 1 -->
+                        <VBox spacing="10" styleClass="insight-box" GridPane.columnIndex="0">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="🚀" style="-fx-font-size: 24px;" />
+                                <Label text="Peak Hours Identified" style="-fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+                            </HBox>
+                            <Label text="12 PM - 2 PM sees 35% higher sales. Consider increasing staff during these hours." style="-fx-text-fill: #475569; -fx-wrap-text: true;" />
+                            <Button text="View Details" styleClass="insight-details-btn" />
+                        </VBox>
+                        
+                        <!-- Insight 2 -->
+                        <VBox spacing="10" styleClass="insight-box" GridPane.columnIndex="1">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="📉" style="-fx-font-size: 24px;" />
+                                <Label text="Low Performing Items" style="-fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+                            </HBox>
+                            <Label text="Jeera Soda has 45% lower sales than average. Consider promotions or menu adjustment." style="-fx-text-fill: #475569; -fx-wrap-text: true;" />
+                            <Button text="View Details" styleClass="insight-details-btn" />
+                        </VBox>
+                        
+                        <!-- Insight 3 -->
+                        <VBox spacing="10" styleClass="insight-box" GridPane.columnIndex="2">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="📊" style="-fx-font-size: 24px;" />
+                                <Label text="Revenue Opportunity" style="-fx-font-weight: bold; -fx-text-fill: #1e293b;" />
+                            </HBox>
+                            <Label text="Weekend sales are 22% higher. Consider extending hours or adding weekend specials." style="-fx-text-fill: #475569; -fx-wrap-text: true;" />
+                            <Button text="View Details" styleClass="insight-details-btn" />
+                        </VBox>
+                    </GridPane>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- BOTTOM: Footer -->
+    <bottom>
+        <HBox alignment="CENTER" spacing="40" style="-fx-background-color: #0d47a1; -fx-padding: 15px;">
+            <Label text="🔄 Real-time Analytics • Last Updated: Today 11:45 AM" style="-fx-text-fill: #bbdefb; -fx-font-size: 12px;" />
+            <Label text="📊 Data Accuracy: 99.8%" style="-fx-text-fill: #bbdefb; -fx-font-size: 12px;" />
+            <Label text="⏱️ Processing Time: 1.2s" style="-fx-text-fill: #bbdefb; -fx-font-size: 12px;" />
+            <Label text="📈 Forecast Confidence: 92%" style="-fx-text-fill: #bbdefb; -fx-font-size: 12px;" />
+        </HBox>
+    </bottom>
+
+</BorderPane>

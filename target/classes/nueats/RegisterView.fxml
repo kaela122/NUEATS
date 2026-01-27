@@ -46,7 +46,7 @@
                     <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Phone Number" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     
                     <TextField fx:id="emailField" promptText="student@university.edu" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                    <TextField fx:id="phoneField" promptText="+1 234 567 8900" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <TextField fx:id="phoneField" promptText="+63" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 12;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
                     <!-- Row 3: Password -->
                     <Label style="-fx-text-fill: #555; -fx-font-weight: bold;" text="Password *" GridPane.columnIndex="0" GridPane.rowIndex="4" />
