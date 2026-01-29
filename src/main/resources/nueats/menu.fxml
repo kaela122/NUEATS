@@ -23,7 +23,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Slider?>
 
-<BorderPane fx:id="mainContainer" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cafeteria.controller.MenuController">
+<BorderPane fx:id="mainContainer" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nueats.main.MenuController">
     <top>
         <VBox spacing="10" style="-fx-background-color: linear-gradient(to right, #2c3e50, #4a6491);">
             <!-- Header -->

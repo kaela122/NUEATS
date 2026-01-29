@@ -1,0 +1,141 @@
+/* Main Style Sheet for NUEats */
+
+/* Navigation Buttons */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 5;
+}
+
+.logout-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 15;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: #c0392b;
+}
+
+/* Search Field */
+.search-field {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+}
+
+.search-field:focused {
+    -fx-border-color: #4caf50;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+}
+
+/* Filter Buttons */
+.filter-button {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 15;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.filter-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Category Buttons */
+.category-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 14px;
+    -fx-padding: 10 15;
+    -fx-alignment: CENTER_LEFT;
+    -fx-cursor: hand;
+}
+
+.category-button:hover {
+    -fx-background-color: #e8f5e9;
+    -fx-background-radius: 5;
+    -fx-text-fill: #4caf50;
+}
+
+/* Checkout Button */
+.checkout-button {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.checkout-button:hover {
+    -fx-background-color: #45a049;
+}
+
+.checkout-button:disabled {
+    -fx-background-color: #95a5a6;
+    -fx-opacity: 0.6;
+}
+
+/* Clear Cart Button */
+.clear-cart-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.clear-cart-button:hover {
+    -fx-background-color: #c0392b;
+}
+
+/* Scroll Pane */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
+/* Slider */
+.slider .track {
+    -fx-background-color: #bdc3c7;
+}
+
+.slider .thumb {
+    -fx-background-color: #4caf50;
+}
+
+/* CheckBox */
+.check-box {
+    -fx-text-fill: #2c3e50;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #4caf50;
+}

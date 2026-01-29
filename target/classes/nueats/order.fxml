@@ -22,7 +22,6 @@
 
 <BorderPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17.0.2-ea" 
             xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="com.cafeteria.controller.OrderController"
             stylesheets="@../styles/order_style.css">
 
     <!-- TOP: Header and Navigation -->
