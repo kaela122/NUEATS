@@ -23,14 +23,14 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Slider?>
 
-<BorderPane fx:id="mainContainer" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nueats.main.MenuController">
+<BorderPane fx:id="mainContainer" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nueats.controllers.MenuController" stylesheets="@/nueats/values/style.css">
     <top>
         <VBox spacing="10" style="-fx-background-color: linear-gradient(to right, #2c3e50, #4a6491);">
             <!-- Header -->
             <HBox alignment="CENTER_LEFT" style="-fx-padding: 15px 20px;">
                 <HBox spacing="15" alignment="CENTER_LEFT">
                     <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">
-                        <Image url="@../images/logo.png" />
+                        <Image url="@nueats/images/ic_cart.png" />
                     </ImageView>
                     <Label text="Canteen" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;">
                         <font>
@@ -187,8 +187,4 @@
             <Label text="© 2023 Canteen Ordering System. All rights reserved." style="-fx-text-fill: #bdc3c7; -fx-font-size: 12px;" />
         </VBox>
     </bottom>
-    
-    <stylesheets>
-        <URL value="@../styles/style.css" />
-    </stylesheets>
 </BorderPane>

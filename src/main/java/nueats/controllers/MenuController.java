@@ -1,21 +1,31 @@
-package nueats.main;
-
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import nueats.models.*;
-import nueats.utils.DataManager;
-import nueats.utils.SceneManager;
+package nueats.controllers;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import nueats.models.CartItem;
+import nueats.models.Order;
+import nueats.utils.DataManager;
+import nueats.utils.SceneManager;
 
 public class MenuController {
 
@@ -34,8 +44,8 @@ public class MenuController {
     @FXML private Button checkoutButton;
 
     private DataManager dataManager;
-    private ObservableList<MenuItem> allMenuItems;
-    private ObservableList<MenuItem> filteredMenuItems;
+    private ObservableList<nueats.models.MenuItem> allMenuItems;
+    private ObservableList<nueats.models.MenuItem> filteredMenuItems;
     private ObservableList<CartItem> cartItems;
     private String currentCategory = "All";
     private String currentSort = "name";
@@ -79,7 +89,7 @@ public class MenuController {
     private void loadMenuItems() {
         menuItemsContainer.getChildren().clear();
         
-        for (MenuItem item : filteredMenuItems) {
+        for (nueats.models.MenuItem item : filteredMenuItems) {
             VBox itemCard = createMenuItemCard(item);
             menuItemsContainer.getChildren().add(itemCard);
         }
@@ -87,7 +97,7 @@ public class MenuController {
         itemCountLabel.setText("(" + filteredMenuItems.size() + " items)");
     }
 
-    private VBox createMenuItemCard(MenuItem item) {
+    private VBox createMenuItemCard(nueats.models.MenuItem item) {
         VBox card = new VBox(10);
         card.setAlignment(Pos.TOP_CENTER);
         card.setPrefSize(250, 350);
@@ -154,7 +164,7 @@ public class MenuController {
         return card;
     }
 
-    private void addToCart(MenuItem item) {
+    private void addToCart(nueats.models.MenuItem item) {
         // Check if item already in cart
         Optional<CartItem> existingItem = cartItems.stream()
                 .filter(ci -> ci.getMenuItem().getId() == item.getId())
