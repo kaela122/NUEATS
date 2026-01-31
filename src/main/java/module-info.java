@@ -2,6 +2,7 @@ module nueats {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
+    requires java.sql;
     
     opens nueats.main to javafx.fxml;
     opens nueats.controllers to javafx.fxml;

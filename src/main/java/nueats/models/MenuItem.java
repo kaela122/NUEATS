@@ -1,6 +1,13 @@
 package nueats.models;
 
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class MenuItem {
     private final IntegerProperty id;
@@ -69,6 +76,6 @@ public class MenuItem {
 
     @Override
     public String toString() {
-        return name.get() + " - ₹" + price.get();
+        return name.get() + " - ₱" + price.get();
     }
 }

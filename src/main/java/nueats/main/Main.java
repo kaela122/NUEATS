@@ -9,7 +9,7 @@ import nueats.utils.SceneManager;
 
 public class Main extends Application {
 
-    public static final String CURRENCY = "₹";
+    public static final String CURRENCY = "₱";
 
     @Override
     public void start(Stage primaryStage) throws Exception {

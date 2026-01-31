@@ -1,146 +1,371 @@
 package nueats.utils;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import nueats.models.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import nueats.models.MenuItem;
+import nueats.models.Order;
+import nueats.models.User;
 
 public class DataManager {
     private static DataManager instance;
-    private ObservableList<MenuItem> menuItems;
-    private ObservableList<User> users;
-    private ObservableList<Order> orders;
     private User currentUser;
-    private int nextOrderId = 1;
-    private int nextUserId = 1;
-
+    private ObservableList<MenuItem> menuItems;
+    private ObservableList<Order> orders;
+    private ObservableList<User> users;
+    
+    // Database connection details - UPDATE THESE WITH YOUR CREDENTIALS
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/nueats_db";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = ""; // <<< PUT YOUR MYSQL PASSWORD HERE
+    
+    private Connection connection;
+    
     private DataManager() {
         menuItems = FXCollections.observableArrayList();
-        users = FXCollections.observableArrayList();
         orders = FXCollections.observableArrayList();
-        initializeSampleData();
+        users = FXCollections.observableArrayList();
+        
+        // Try to connect to database, if fails use in-memory data
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connectToDatabase();
+            loadDataFromDatabase();
+            System.out.println("✓ Connected to database successfully!");
+        } catch (Exception e) {
+            System.out.println("⚠ Database not available, using in-memory data: " + e.getMessage());
+            initializeSampleData();
+        }
     }
-
+    
     public static DataManager getInstance() {
         if (instance == null) {
             instance = new DataManager();
         }
         return instance;
     }
-
+    
+    private void connectToDatabase() throws SQLException {
+        connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+    }
+    
+    private void loadDataFromDatabase() {
+        try {
+            loadMenuItemsFromDB();
+            loadUsersFromDB();
+            loadOrdersFromDB();
+        } catch (SQLException e) {
+            System.out.println("Error loading data: " + e.getMessage());
+            initializeSampleData();
+        }
+    }
+    
+    private void loadMenuItemsFromDB() throws SQLException {
+        String query = "SELECT * FROM menu_items";
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        
+        while (rs.next()) {
+            MenuItem item = new MenuItem(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("description"),
+                rs.getDouble("price"),
+                rs.getString("category"),
+                rs.getInt("stock"),
+                rs.getString("image_url")
+            );
+            menuItems.add(item);
+        }
+        rs.close();
+        stmt.close();
+    }
+    
+    private void loadUsersFromDB() throws SQLException {
+        String query = "SELECT * FROM users";
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        
+        while (rs.next()) {
+            User user = new User(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("email"),
+                rs.getString("password"),
+                rs.getString("user_type"),
+                rs.getString("phone"),
+                rs.getString("student_id"),
+                rs.getString("hostel"),
+                rs.getString("department")
+            );
+            users.add(user);
+        }
+        rs.close();
+        stmt.close();
+    }
+    
+    private void loadOrdersFromDB() throws SQLException {
+        String query = "SELECT * FROM orders";
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        
+        while (rs.next()) {
+            int userId = rs.getInt("user_id");
+            User user = users.stream()
+                .filter(u -> u.getId() == userId)
+                .findFirst()
+                .orElse(null);
+            
+            if (user != null) {
+                Order order = new Order(
+                    rs.getInt("id"),
+                    user,
+                    FXCollections.observableArrayList(),
+                    rs.getDouble("total")
+                );
+                order.setStatus(rs.getString("status"));
+                order.setPaymentMethod(rs.getString("payment_method"));
+                orders.add(order);
+            }
+        }
+        rs.close();
+        stmt.close();
+    }
+    
     private void initializeSampleData() {
-        // Add sample menu items
-        menuItems.add(new MenuItem(1, "Chicken Biryani", "Aromatic basmati rice with tender chicken pieces", 120.0, "Food", 25, "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8"));
-        menuItems.add(new MenuItem(2, "Vegetable Sandwich", "Fresh vegetables with cheese and sauces", 50.0, "Food", 30, "https://images.unsplash.com/photo-1528735602780-2552fd46c7af"));
-        menuItems.add(new MenuItem(3, "Masala Dosa", "Crispy dosa with spiced potato filling", 60.0, "Food", 20, "https://images.unsplash.com/photo-1630383249896-424e482df921"));
-        menuItems.add(new MenuItem(4, "Paneer Tikka", "Grilled cottage cheese with Indian spices", 90.0, "Food", 15, "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8"));
-        menuItems.add(new MenuItem(5, "Chicken Burger", "Juicy chicken patty with fresh vegetables", 80.0, "Food", 22, "https://images.unsplash.com/photo-1568901346375-23c9450c58cd"));
-        menuItems.add(new MenuItem(6, "Veg Pulao", "Fragrant rice cooked with mixed vegetables", 70.0, "Food", 18, "https://images.unsplash.com/photo-1596560548464-f010549b84d7"));
+        System.out.println("Loading sample data...");
         
-        menuItems.add(new MenuItem(7, "Coffee", "Freshly brewed hot coffee", 30.0, "Beverages", 50, "https://images.unsplash.com/photo-1498804103079-a6351b050096"));
-        menuItems.add(new MenuItem(8, "Mango Juice", "Fresh mango juice", 40.0, "Beverages", 35, "https://images.unsplash.com/photo-1600271886742-f049cd451bba"));
-        menuItems.add(new MenuItem(9, "Lemon Tea", "Refreshing lemon-flavored tea", 25.0, "Beverages", 40, "https://images.unsplash.com/photo-1556679343-c7306c1976bc"));
-        menuItems.add(new MenuItem(10, "Cold Coffee", "Chilled coffee with ice cream", 50.0, "Beverages", 28, "https://images.unsplash.com/photo-1461023058943-07fcbe16d735"));
-        menuItems.add(new MenuItem(11, "Lassi", "Traditional Indian yogurt drink", 35.0, "Beverages", 32, "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4"));
+        // Default users
+        users.add(new User(1, "Admin", "admin@nueats.com", "admin123", "Admin"));
+        users.add(new User(2, "John Doe", "john@nueats.com", "password", "Student", 
+                          "1234567890", "S12345", "Hostel A", "Computer Science"));
         
-        menuItems.add(new MenuItem(12, "Samosa", "Crispy fried pastry with spiced filling", 20.0, "Snacks", 45, "https://images.unsplash.com/photo-1601050690597-df0568f70950"));
-        menuItems.add(new MenuItem(13, "Pakora", "Deep-fried vegetable fritters", 30.0, "Snacks", 38, "https://images.unsplash.com/photo-1606491956689-2ea866880c84"));
-        menuItems.add(new MenuItem(14, "French Fries", "Crispy golden potato fries", 40.0, "Snacks", 42, "https://images.unsplash.com/photo-1573080496219-bb080dd4f877"));
-        menuItems.add(new MenuItem(15, "Nachos", "Tortilla chips with cheese dip", 55.0, "Snacks", 26, "https://images.unsplash.com/photo-1582169296194-e4d644c48063"));
-        menuItems.add(new MenuItem(16, "Spring Rolls", "Crispy vegetable spring rolls", 45.0, "Snacks", 30, "https://images.unsplash.com/photo-1593504049359-74330189a345"));
+        // Menu items - Paths verified from C:\Users\judep\Documents\TaraNa\NUEATS\src\main\resources\nueats\image
+        // Available: Burger.png, Coke.png, Sprite.jpg, Water.png, Pancitcanton.png, image.png, ic_cart.png, ic_delivery.png
         
-        menuItems.add(new MenuItem(17, "Gulab Jamun", "Sweet dumplings in sugar syrup", 35.0, "Desserts", 28, "https://images.unsplash.com/photo-1589567357818-a5bb11b3e41a"));
-        menuItems.add(new MenuItem(18, "Ice Cream", "Assorted flavors of ice cream", 40.0, "Desserts", 35, "https://images.unsplash.com/photo-1563805042-7684c019e1cb"));
-        menuItems.add(new MenuItem(19, "Kheer", "Traditional Indian rice pudding", 30.0, "Desserts", 20, "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d"));
-        menuItems.add(new MenuItem(20, "Cake Slice", "Assorted cake varieties", 50.0, "Desserts", 15, "https://images.unsplash.com/photo-1578985545062-69928b1d9587"));
-
-        // Add sample users
-        users.add(new User(nextUserId++, "Admin User", "admin@nueats.com", "admin123", "Admin", 
-                          "+63 123 456 7890", "ADMIN001", "", "Administration"));
-        users.add(new User(nextUserId++, "John Doe", "john@student.edu", "student123", "Student",
-                          "+63 987 654 3210", "S2024001", "Hostel A, Room 101", "Computer Science"));
-        users.add(new User(nextUserId++, "Dr. Smith", "smith@faculty.edu", "faculty123", "Faculty",
-                          "+63 111 222 3333", "F2024001", "", "Engineering"));
+        try {
+            menuItems.add(new MenuItem(1, "Classic Burger", 
+                "Delicious beef burger with fresh vegetables and special sauce", 
+                80.0, "Food", 25, 
+                getClass().getResource("/nueats/image/Burger.png").toExternalForm()));
+                
+            menuItems.add(new MenuItem(2, "Coca Cola", 
+                "Refreshing cold Coca Cola beverage", 
+                30.0, "Beverages", 50, 
+                getClass().getResource("/nueats/image/Coke.png").toExternalForm()));
+                
+            menuItems.add(new MenuItem(3, "Sprite", 
+                "Lemon-lime flavored refreshing drink", 
+                30.0, "Beverages", 45, 
+                getClass().getResource("/nueats/image/Sprite.jpg").toExternalForm()));
+                
+            menuItems.add(new MenuItem(4, "Mineral Water", 
+                "Pure drinking water 500ml", 
+                20.0, "Beverages", 100, 
+                getClass().getResource("/nueats/image/Water.png").toExternalForm()));
+                
+            menuItems.add(new MenuItem(5, "Pancit Canton", 
+                "Filipino stir-fried noodles with vegetables", 
+                60.0, "Food", 30, 
+                getClass().getResource("/nueats/image/Pancitcanton.png").toExternalForm()));
+                
+            menuItems.add(new MenuItem(6, "Chicken Wings", 
+                "Crispy fried chicken wings with special seasoning", 
+                120.0, "Food", 20, 
+                getClass().getResource("/nueats/image/image.png").toExternalForm()));
+                
+            menuItems.add(new MenuItem(7, "French Fries", 
+                "Golden crispy french fries", 
+                50.0, "Snacks", 40, 
+                getClass().getResource("/nueats/image/image.png").toExternalForm()));
+                
+            menuItems.add(new MenuItem(8, "Pizza Slice", 
+                "Cheese pizza slice with fresh toppings", 
+                90.0, "Food", 15, 
+                getClass().getResource("/nueats/image/image.png").toExternalForm()));
+                
+            menuItems.add(new MenuItem(9, "Club Sandwich", 
+                "Triple-decker sandwich with fries", 
+                70.0, "Food", 18, 
+                getClass().getResource("/nueats/image/image.png").toExternalForm()));
+                
+            menuItems.add(new MenuItem(10, "Ice Cream", 
+                "Chocolate ice cream cup", 
+                40.0, "Snacks", 35, 
+                getClass().getResource("/nueats/image/image.png").toExternalForm()));
+                
+            System.out.println("✓ Loaded " + menuItems.size() + " menu items with images");
+        } catch (Exception e) {
+            System.err.println("Error loading images: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
-
-    // Menu Items
-    public ObservableList<MenuItem> getMenuItems() {
-        return menuItems;
+    
+    public User getCurrentUser() { return currentUser; }
+    public void setCurrentUser(User user) { this.currentUser = user; }
+    
+    public User authenticateUser(String email, String password) {
+        return users.stream()
+                .filter(u -> u.getEmail().equals(email) && u.getPassword().equals(password))
+                .findFirst()
+                .orElse(null);
     }
-
-    public void addMenuItem(MenuItem item) {
-        menuItems.add(item);
+    
+    public boolean userExists(String email) {
+        return users.stream().anyMatch(u -> u.getEmail().equals(email));
     }
-
-    public void updateMenuItem(MenuItem item) {
-        for (int i = 0; i < menuItems.size(); i++) {
-            if (menuItems.get(i).getId() == item.getId()) {
-                menuItems.set(i, item);
-                break;
+    
+    public void addUser(User user) {
+        user.setId(users.stream().mapToInt(User::getId).max().orElse(0) + 1);
+        users.add(user);
+        if (connection != null) {
+            try {
+                saveUserToDB(user);
+            } catch (SQLException e) {
+                System.out.println("Error saving user: " + e.getMessage());
             }
         }
     }
-
+    
+    private void saveUserToDB(User user) throws SQLException {
+        String query = "INSERT INTO users (id, name, email, password, user_type, phone, student_id, hostel, department) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement pstmt = connection.prepareStatement(query);
+        pstmt.setInt(1, user.getId());
+        pstmt.setString(2, user.getName());
+        pstmt.setString(3, user.getEmail());
+        pstmt.setString(4, user.getPassword());
+        pstmt.setString(5, user.getUserType());
+        pstmt.setString(6, user.getPhone());
+        pstmt.setString(7, user.getStudentId());
+        pstmt.setString(8, user.getHostel());
+        pstmt.setString(9, user.getDepartment());
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+    
+    public ObservableList<MenuItem> getMenuItems() { return menuItems; }
+    
+    public void addMenuItem(MenuItem item) {
+        item.setId(menuItems.stream().mapToInt(MenuItem::getId).max().orElse(0) + 1);
+        menuItems.add(item);
+        if (connection != null) {
+            try {
+                saveMenuItemToDB(item);
+            } catch (SQLException e) {
+                System.out.println("Error saving item: " + e.getMessage());
+            }
+        }
+    }
+    
+    public void updateMenuItem(MenuItem item) {
+        if (connection != null) {
+            try {
+                updateMenuItemInDB(item);
+            } catch (SQLException e) {
+                System.out.println("Error updating item: " + e.getMessage());
+            }
+        }
+    }
+    
     public void deleteMenuItem(MenuItem item) {
         menuItems.remove(item);
+        if (connection != null) {
+            try {
+                deleteMenuItemFromDB(item.getId());
+            } catch (SQLException e) {
+                System.out.println("Error deleting item: " + e.getMessage());
+            }
+        }
     }
-
-    public MenuItem getMenuItemById(int id) {
-        return menuItems.stream()
-                .filter(item -> item.getId() == id)
-                .findFirst()
-                .orElse(null);
+    
+    private void saveMenuItemToDB(MenuItem item) throws SQLException {
+        String query = "INSERT INTO menu_items (id, name, description, price, category, stock, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement pstmt = connection.prepareStatement(query);
+        pstmt.setInt(1, item.getId());
+        pstmt.setString(2, item.getName());
+        pstmt.setString(3, item.getDescription());
+        pstmt.setDouble(4, item.getPrice());
+        pstmt.setString(5, item.getCategory());
+        pstmt.setInt(6, item.getStock());
+        pstmt.setString(7, item.getImageUrl());
+        pstmt.executeUpdate();
+        pstmt.close();
     }
-
-    // Users
-    public ObservableList<User> getUsers() {
-        return users;
+    
+    private void updateMenuItemInDB(MenuItem item) throws SQLException {
+        String query = "UPDATE menu_items SET name=?, description=?, price=?, category=?, stock=?, image_url=? WHERE id=?";
+        PreparedStatement pstmt = connection.prepareStatement(query);
+        pstmt.setString(1, item.getName());
+        pstmt.setString(2, item.getDescription());
+        pstmt.setDouble(3, item.getPrice());
+        pstmt.setString(4, item.getCategory());
+        pstmt.setInt(5, item.getStock());
+        pstmt.setString(6, item.getImageUrl());
+        pstmt.setInt(7, item.getId());
+        pstmt.executeUpdate();
+        pstmt.close();
     }
-
-    public void addUser(User user) {
-        user.setId(nextUserId++);
-        users.add(user);
+    
+    private void deleteMenuItemFromDB(int id) throws SQLException {
+        String query = "DELETE FROM menu_items WHERE id=?";
+        PreparedStatement pstmt = connection.prepareStatement(query);
+        pstmt.setInt(1, id);
+        pstmt.executeUpdate();
+        pstmt.close();
     }
-
-    public User authenticateUser(String email, String password) {
-        return users.stream()
-                .filter(user -> user.getEmail().equals(email) && user.getPassword().equals(password))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-    }
-
-    public boolean userExists(String email) {
-        return users.stream().anyMatch(user -> user.getEmail().equals(email));
-    }
-
-    // Orders
-    public ObservableList<Order> getOrders() {
-        return orders;
-    }
-
-    public void addOrder(Order order) {
-        order.setId(nextOrderId++);
-        orders.add(order);
-    }
-
+    
+    public ObservableList<Order> getOrders() { return orders; }
+    
     public ObservableList<Order> getOrdersByUser(User user) {
         List<Order> userOrders = orders.stream()
-                .filter(order -> order.getUser().getId() == user.getId())
+                .filter(o -> o.getUser().getId() == user.getId())
                 .toList();
         return FXCollections.observableArrayList(userOrders);
     }
-
+    
+    public void addOrder(Order order) {
+        orders.add(order);
+        if (connection != null) {
+            try {
+                saveOrderToDB(order);
+            } catch (SQLException e) {
+                System.out.println("Error saving order: " + e.getMessage());
+            }
+        }
+    }
+    
+    private void saveOrderToDB(Order order) throws SQLException {
+        String query = "INSERT INTO orders (id, user_id, total, status, payment_method, order_date) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement pstmt = connection.prepareStatement(query);
+        pstmt.setInt(1, order.getId());
+        pstmt.setInt(2, order.getUser().getId());
+        pstmt.setDouble(3, order.getTotal());
+        pstmt.setString(4, order.getStatus());
+        pstmt.setString(5, order.getPaymentMethod());
+        pstmt.setTimestamp(6, Timestamp.valueOf(order.getOrderDate()));
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+    
     public int getNextOrderId() {
-        return nextOrderId;
+        return orders.stream().mapToInt(Order::getId).max().orElse(0) + 1;
+    }
+    
+    public void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing connection: " + e.getMessage());
+            }
+        }
     }
 }

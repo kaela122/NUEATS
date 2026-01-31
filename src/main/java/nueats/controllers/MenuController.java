@@ -135,7 +135,7 @@ public class MenuController {
         HBox priceStockBox = new HBox(10);
         priceStockBox.setAlignment(Pos.CENTER_LEFT);
         
-        Label priceLabel = new Label("₹" + String.format("%.0f", item.getPrice()));
+        Label priceLabel = new Label("₱" + String.format("%.0f", item.getPrice()));
         priceLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #e74c3c;");
         
         Label stockLabel = new Label(item.getStock() + " left");
@@ -203,9 +203,9 @@ public class MenuController {
         double total = subtotal + tax;
 
         cartCountLabel.setText(String.valueOf(cartItems.size()));
-        subtotalLabel.setText("₹" + String.format("%.2f", subtotal));
-        taxLabel.setText("₹" + String.format("%.2f", tax));
-        totalLabel.setText("₹" + String.format("%.2f", total));
+        subtotalLabel.setText("₱" + String.format("%.2f", subtotal));
+        taxLabel.setText("₱" + String.format("%.2f", tax));
+        totalLabel.setText("₱" + String.format("%.2f", total));
     }
 
     private VBox createCartItemBox(CartItem cartItem) {
@@ -244,7 +244,7 @@ public class MenuController {
             updateCartDisplay();
         });
 
-        Label priceLabel = new Label("₹" + String.format("%.2f", cartItem.getSubtotal()));
+        Label priceLabel = new Label("₱" + String.format("%.2f", cartItem.getSubtotal()));
         priceLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #e74c3c;");
 
         quantityBox.getChildren().addAll(minusBtn, quantityLabel, plusBtn, new Region(), priceLabel, removeBtn);
@@ -274,7 +274,7 @@ public class MenuController {
             StringBuilder orderText = new StringBuilder();
             for (Order order : userOrders) {
                 orderText.append("Order #").append(order.getId())
-                         .append(" - ₹").append(String.format("%.2f", order.getTotal()))
+                         .append(" - ₱").append(String.format("%.2f", order.getTotal()))
                          .append(" - ").append(order.getStatus())
                          .append("\n");
             }
@@ -400,8 +400,8 @@ public class MenuController {
         confirmation.setTitle("Confirm Order");
         confirmation.setHeaderText("Place Your Order");
         
-        double total = Double.parseDouble(totalLabel.getText().replace("₹", ""));
-        confirmation.setContentText("Total Amount: ₹" + String.format("%.2f", total) + 
+        double total = Double.parseDouble(totalLabel.getText().replace("₱", ""));
+        confirmation.setContentText("Total Amount: ₱" + String.format("%.2f", total) + 
                                    "\n\nProceed with order?");
 
         Optional<ButtonType> result = confirmation.showAndWait();
@@ -426,7 +426,7 @@ public class MenuController {
             success.setTitle("Order Placed");
             success.setHeaderText("Order Successful!");
             success.setContentText("Your order #" + order.getId() + " has been placed successfully!\n" +
-                                 "Total: ₹" + String.format("%.2f", total));
+                                 "Total: ₱" + String.format("%.2f", total));
             success.showAndWait();
         }
     }
