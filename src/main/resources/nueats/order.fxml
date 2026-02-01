@@ -22,7 +22,6 @@
 
 <BorderPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17.0.2-ea" 
             xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="com.cafeteria.controller.OrderController"
             stylesheets="@../styles/order_style.css">
 
     <!-- TOP: Header and Navigation -->
@@ -87,7 +86,7 @@
                                 </ImageView>
                                 <!-- Price Tag -->
                                 <HBox alignment="CENTER_RIGHT" style="-fx-padding: 10px;">
-                                    <Label text="₹50" styleClass="price-tag" />
+                                    <Label text="₱50" styleClass="price-tag" />
                                 </HBox>
                             </StackPane>
                             
@@ -113,7 +112,7 @@
                                     <Image url="https://images.unsplash.com/photo-1498804103079-a6351b050096" />
                                 </ImageView>
                                 <HBox alignment="CENTER_RIGHT" style="-fx-padding: 10px;">
-                                    <Label text="₹30" styleClass="price-tag" />
+                                    <Label text="₱30" styleClass="price-tag" />
                                 </HBox>
                             </StackPane>
                             
@@ -164,16 +163,16 @@
                 <VBox spacing="10" style="-fx-padding: 20px 0;">
                     <HBox alignment="CENTER_LEFT" spacing="5">
                         <Label text="Subtotal:" style="-fx-font-size: 16px;" />
-                        <Label fx:id="subtotalLabel" text="₹0" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+                        <Label fx:id="subtotalLabel" text="₱0" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
                     </HBox>
                     <HBox alignment="CENTER_LEFT" spacing="5">
                         <Label text="Tax (5%):" style="-fx-font-size: 16px;" />
-                        <Label fx:id="taxLabel" text="₹0" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+                        <Label fx:id="taxLabel" text="₱0" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
                     </HBox>
                     <Separator />
                     <HBox alignment="CENTER_LEFT" spacing="5">
                         <Label text="Total:" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-                        <Label fx:id="totalLabel" text="₹0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #e74c3c;" />
+                        <Label fx:id="totalLabel" text="₱0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #e74c3c;" />
                     </HBox>
                 </VBox>
                 
