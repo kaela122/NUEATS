@@ -177,30 +177,30 @@ public class DataManager {
                 60.0, "Food", 30, 
                 getClass().getResource("/nueats/image/Pancitcanton.png").toExternalForm()));
                 
-            menuItems.add(new MenuItem(6, "Chicken Wings", 
-                "Crispy fried chicken wings with special seasoning", 
+            menuItems.add(new MenuItem(6, "Hotdog", 
+                "Best selling hotdog with ketchup and mustard", 
                 120.0, "Food", 20, 
-                getClass().getResource("/nueats/image/image.png").toExternalForm()));
+                getClass().getResource("/nueats/image/hotdog.png").toExternalForm()));
                 
-            menuItems.add(new MenuItem(7, "French Fries", 
-                "Golden crispy french fries", 
+            menuItems.add(new MenuItem(7, "Sharwarma", 
+                "savory shawarma wrap with garlic sauce", 
                 50.0, "Snacks", 40, 
-                getClass().getResource("/nueats/image/image.png").toExternalForm()));
+                getClass().getResource("/nueats/image/shawarma.png").toExternalForm()));
                 
-            menuItems.add(new MenuItem(8, "Pizza Slice", 
-                "Cheese pizza slice with fresh toppings", 
+            menuItems.add(new MenuItem(8, "Carbonara", 
+                "Carbonara pasta with creamy sauce", 
                 90.0, "Food", 15, 
-                getClass().getResource("/nueats/image/image.png").toExternalForm()));
+                getClass().getResource("/nueats/image/carbo.png").toExternalForm()));
                 
-            menuItems.add(new MenuItem(9, "Club Sandwich", 
-                "Triple-decker sandwich with fries", 
+            menuItems.add(new MenuItem(9, "Pesto Pasta", 
+                "Pesto pasta with fresh basil sauce", 
                 70.0, "Food", 18, 
-                getClass().getResource("/nueats/image/image.png").toExternalForm()));
+                getClass().getResource("/nueats/image/pesto.png").toExternalForm()));
                 
-            menuItems.add(new MenuItem(10, "Ice Cream", 
-                "Chocolate ice cream cup", 
+            menuItems.add(new MenuItem(10, "Taco", 
+                "Mexican-style taco with seasoned meat and vegetables", 
                 40.0, "Snacks", 35, 
-                getClass().getResource("/nueats/image/image.png").toExternalForm()));
+                getClass().getResource("/nueats/image/taco.png").toExternalForm()));
                 
             System.out.println("✓ Loaded " + menuItems.size() + " menu items with images");
         } catch (Exception e) {
