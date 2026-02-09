@@ -190,7 +190,7 @@ public class DataManager {
             menuItems.add(new MenuItem(8, "Carbonara", 
                 "Carbonara pasta with creamy sauce", 
                 90.0, "Food", 15, 
-                getClass().getResource("/nueats/image/Carbonara.png").toExternalForm()));
+                getClass().getResource("/nueats/image/Carbonara.jpg").toExternalForm()));
                 
             menuItems.add(new MenuItem(9, "Pesto Pasta", 
                 "Pesto pasta with fresh basil sauce", 
